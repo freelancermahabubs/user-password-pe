@@ -9,7 +9,7 @@ const Login = () => {
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
   };
-  const { singIn } = useContext(AuthContext);
+  const { singIn, singInWithGoogle } = useContext(AuthContext);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -23,6 +23,17 @@ const Login = () => {
         const loggedUser = result.user;
         console.log(loggedUser);
         form.reset();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleGoogleSingIn = () => {
+    singInWithGoogle()
+      .then((result) => {
+        const loggedUser = result.user;
+        console.log(loggedUser);
       })
       .catch((error) => {
         console.log(error);
@@ -86,6 +97,11 @@ const Login = () => {
                 New to Auth Master? Please Register
               </Link>
             </p>
+            <div className="p-5">
+              <button onClick={handleGoogleSingIn} className="btn btn-primary">
+                Google
+              </button>
+            </div>
           </div>
         </div>
       </div>
